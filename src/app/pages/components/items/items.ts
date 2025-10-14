@@ -5,6 +5,7 @@ import { ItemsService } from '../../services/items.service';
 import { ItemModel } from '../../../shared/types/services.types';
 import { CommonModule, DatePipeConfig } from '@angular/common';
 import { DataGridRowConfig, FieldTypes } from '../../../shared/types/data-grid.types';
+import { Router } from '@angular/router';
 
 type itemsKeys = 'title' | 'price' | 'imgSrc';
 
@@ -15,16 +16,18 @@ type itemsKeys = 'title' | 'price' | 'imgSrc';
   styleUrl: './items.css',
 })
 export class Items {
+  router = inject(Router);
+
   gridAction($event: any) {
     switch ($event.type) {
-      case 'remove':
-        debugger;
+      case 'remove':        
         this.itemsService.remove($event.data.id).subscribe((resp:any)=>{
-          debugger;
+          
         })
         break;
 
       case 'more':
+        this.router.navigate(['items', $event.data.id]);
         break;
 
       default:

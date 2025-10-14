@@ -15,7 +15,7 @@ export class ItemsService implements HttpServiceModel {
     return this.http.get<HttpResponseModel>(Api.ITEMS_END_POINT);
   }
   get(id: number): Observable<any> {
-    throw new Error('Method not implemented.');
+    return this.http.get<HttpResponseModel>(Api.ITEMS_END_POINT + "/" + id);
   }
   add(item: any): Observable<any> {
     throw new Error('Method not implemented.');
@@ -24,7 +24,7 @@ export class ItemsService implements HttpServiceModel {
     throw new Error('Method not implemented.');
   }
   remove(id: number): Observable<any> {
-    throw new Error('Method not implemented.');
+    return this.http.delete(Api.ITEMS_END_POINT + "/" + id);
   }
   
 }
