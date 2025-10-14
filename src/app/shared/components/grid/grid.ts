@@ -1,13 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-grid',
   imports: [CommonModule],
   templateUrl: './grid.html',
-  styleUrl: './grid.css'
+  styleUrl: './grid.css',
 })
 export class Grid {
-  data:any = input.required();
-  config:any = input.required();
+  change = output<any>();
+  data: any = input.required();
+  config: any = input.required();
+  
+  onClick(type: any, data: any) {
+    this.change.emit({ type, data });
+  }
 }

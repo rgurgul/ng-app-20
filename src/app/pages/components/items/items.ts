@@ -15,6 +15,22 @@ type itemsKeys = 'title' | 'price' | 'imgSrc';
   styleUrl: './items.css',
 })
 export class Items {
+  gridAction($event: any) {
+    switch ($event.type) {
+      case 'remove':
+        debugger;
+        this.itemsService.remove($event.data.id).subscribe((resp:any)=>{
+          debugger;
+        })
+        break;
+
+      case 'more':
+        break;
+
+      default:
+        break;
+    }
+  }
   itemsService = inject(ItemsService);
   total!: number;
   items = signal<ItemModel[]>([]);
@@ -22,8 +38,8 @@ export class Items {
     { key: 'title' },
     { key: 'price', type: FieldTypes.INPUT },
     { key: 'imgSrc', type: FieldTypes.IMAGE },
-    { type:FieldTypes.BUTTON,header:'remove'},
-    { type:FieldTypes.BUTTON,header:'more'},
+    { type: FieldTypes.BUTTON, header: 'remove' },
+    { type: FieldTypes.BUTTON, header: 'more' },
   ];
 
   constructor() {
