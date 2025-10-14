@@ -1,9 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { Search } from '../../../shared/components/search/search';
 import { Grid } from '../../../shared/components/grid/grid';
 import { ItemsService } from '../../services/items.service';
 import { ItemModel } from '../../../shared/types/services.types';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipeConfig } from '@angular/common';
+import { DataGridRowConfig, FieldTypes } from '../../../shared/types/data-grid.types';
+
+type itemsKeys = 'title' | 'price' | 'imgSrc';
 
 @Component({
   selector: 'app-items',
@@ -14,16 +17,18 @@ import { CommonModule } from '@angular/common';
 export class Items {
   itemsService = inject(ItemsService);
   total!: number;
-  items!: ItemModel[];
-  gConfig: any = [
+  items = signal<ItemModel[]>([]);
+  gConfig: DataGridRowConfig<itemsKeys>[] = [
     { key: 'title' },
-    { key: 'price', type: 'input' },
-    { key: 'imgSrc', type: 'image' },
+    { key: 'price', type: FieldTypes.INPUT },
+    { key: 'imgSrc', type: FieldTypes.IMAGE },
+    { type:FieldTypes.BUTTON,header:'remove'},
+    { type:FieldTypes.BUTTON,header:'more'},
   ];
 
   constructor() {
     this.itemsService.fetch().subscribe((resp) => {
-      this.items = resp.data;
+      this.items.set(resp.data);
       this.total = resp.total;
     });
   }
