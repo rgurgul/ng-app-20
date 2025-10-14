@@ -1,1 +1,16 @@
-<p>search works!</p>
+
+{{f.value | json}}
+
+<form #f="ngForm">
+
+    <div class="flex flex-col gap-2">
+
+    @for (item of controls(); track $index) {
+
+        <input class="bg-white" type="text" ngModel [name]="item" />
+
+    }
+
+    </div>
+
+</form>
