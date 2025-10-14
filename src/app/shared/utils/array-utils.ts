@@ -1,5 +1,5 @@
 export class Utils {
-  static addOrIncreaseParam(data: any[], newItem: any, param: string): any[] {
+  static increaseParam(data: any[], newItem: any, param: string): any[] {
     const found = data.find((item) => item.id === newItem.id);
     return [
       ...(found
@@ -9,7 +9,7 @@ export class Utils {
         : [...data, { ...newItem, [param]: 1 }]),
     ];
   }
-  static removeOrDecreaseParam(
+  static decreaseParam(
     data: any[],
     itemToDelete: any,
     param: string
