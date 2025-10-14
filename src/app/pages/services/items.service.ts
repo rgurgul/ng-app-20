@@ -12,7 +12,7 @@ export class ItemsService implements HttpServiceModel {
   http = inject(HttpClient);
 
   fetch(filters?: { [key: string]: any; }): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(Api.ITEMS_END_POINT)
+    return this.http.get<HttpResponseModel>(Api.ITEMS_END_POINT);
   }
   get(id: number): Observable<any> {
     throw new Error('Method not implemented.');

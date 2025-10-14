@@ -8,5 +8,6 @@ import { Component, input } from '@angular/core';
   styleUrl: './grid.css'
 })
 export class Grid {
-  data:any = input.required()
+  data:any = input.required();
+  config:any = input.required();
 }

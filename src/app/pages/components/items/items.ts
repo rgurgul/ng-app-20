@@ -15,11 +15,16 @@ export class Items {
   itemsService = inject(ItemsService);
   total!: number;
   items!: ItemModel[];
+  gConfig: any = [
+    { key: 'title' },
+    { key: 'price', type: 'input' },
+    { key: 'imgSrc', type: 'image' },
+  ];
 
-  constructor(){
-    this.itemsService.fetch().subscribe((resp)=>{
+  constructor() {
+    this.itemsService.fetch().subscribe((resp) => {
       this.items = resp.data;
       this.total = resp.total;
-    })
+    });
   }
 }

@@ -1,2 +1,29 @@
-<p>grid works!</p>
-{{ data() | json }}
+<table>
+  <thead>
+    <tr>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of data(); track $index) {
+    <tr>
+      <td>{{ $index }}</td>
+      @for (col of config(); track $index) {
+        <td>
+            @switch (col.type) {
+                @case ('input') {
+                    <input type="text">
+                }
+                @case ('image') {
+                    <img [src]="item[col.key]" alt="" width="50">
+                }
+                @default {
+                    {{item[col.key]}}
+                }
+            }
+        </td>
+      }
+    </tr>
+    }
+  </tbody>
+</table>
