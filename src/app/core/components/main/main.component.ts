@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { AuthComponent } from "../auth.component/auth.component";
 
 @Component({
   selector: 'app-main',
@@ -22,7 +23,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     MatIconModule,
     AsyncPipe,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    AuthComponent
 ]
 })
 export class MainComponent {

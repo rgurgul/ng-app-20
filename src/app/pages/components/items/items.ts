@@ -6,6 +6,7 @@ import { ItemModel } from '../../../shared/types/services.types';
 import { CommonModule, DatePipeConfig } from '@angular/common';
 import { DataGridRowConfig, FieldTypes } from '../../../shared/types/data-grid.types';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 
 type itemsKeys = 'title' | 'price' | 'imgSrc';
 
@@ -20,10 +21,10 @@ export class Items {
 
   gridAction($event: any) {
     switch ($event.type) {
-      case 'remove':        
-        this.itemsService.remove($event.data.id).subscribe((resp:any)=>{
-          
-        })
+      case 'remove':
+        this.itemsService.remove($event.data.id).subscribe((resp: any) => {
+          debugger;
+        });
         break;
 
       case 'more':
