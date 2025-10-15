@@ -8,18 +8,16 @@ import { Grid } from '../../../shared/components/grid/grid';
 
 import { DataGridRowConfig, FieldTypes } from '../../../shared/types/data-grid.types';
 import { Search } from '../../../shared/components/search/search';
+import { SearchPipe } from '../../../shared/pipes/search-pipe';
 
 @Component({
   selector: 'app-workers',
-
-  imports: [JsonPipe, Grid, Search],
-
+  imports: [JsonPipe, Grid, Search, SearchPipe],
   templateUrl: './workers.html',
-
   styleUrl: './workers.css',
 })
 export class Workers {
-  filters = signal({ name: '', phone: '' });
+  filters = signal({ });
   changeHandler($event: any) {
     this.filters.update((value) => {
       return { ...value, ...$event };
@@ -38,8 +36,8 @@ export class Workers {
       this.workers = resp.data;
     });
 
-    effect(()=>{
+    effect(() => {
       console.log(this.filters());
-    })
+    });
   }
 }
