@@ -5,9 +5,6 @@ export class CustomValidators {
     if (Object.values(controls).some(({ value }: any) => !!value)) {
       return null;
     }
-    /* if ()) {
-        return null;
-    } */
     return { atLeastOneShouldBeSelected: true };
   }
   static DateShoulddBePassed({ value }: any): ValidationErrors | null {

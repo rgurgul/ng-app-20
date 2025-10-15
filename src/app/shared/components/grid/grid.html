@@ -1,4 +1,3 @@
-
 <table>
   <thead>
     <tr>
@@ -10,26 +9,24 @@
     <tr>
       <td>{{ $index }}</td>
       @for (col of config(); track $index) {
-        <td>
-            @switch (col.type) {
-                @case ('input') {
-                    <input type="text">
-                }
-                @case ('img') {
-                    <img [src]="item[col.key]" alt="" width="50">
-                }
-                @case ('button') {
-                  <button 
-                    (click)="onClick(col.header, item)" 
-                    class="bg-blue-600 rounded-xl p-2 m-1 shadow text-white">
-                    {{col.header}}
-                  </button>
-                }
-                @default {
-                    {{item[col.key]}}
-                }
-            }
-        </td>
+      <td>
+        @switch (col.type) { @case ('input') {
+        <input type="text" />
+        } @case ('img') {
+        <img [src]="item[col.key]" alt="" width="50" />
+        } @case ('button') {
+        <button
+          matButton="filled"
+          [disabled]="col.disabled"
+          (click)="onClick(col.header, item)"
+          class="bg-blue-600 rounded-xl p-2 m-1 shadow text-white"
+        >
+          {{ col.header }}
+        </button>
+        } @default {
+        {{ item[col.key] }}
+        } }
+      </td>
       }
     </tr>
     }

@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-grid',
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './grid.html',
   styleUrl: './grid.css',
 })

@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal, WritableSignal } from '@angular/core';
+import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
 import { Search } from '../../../shared/components/search/search';
 import { Grid } from '../../../shared/components/grid/grid';
 import { ItemsService } from '../../services/items.service';
@@ -7,8 +7,8 @@ import { CommonModule, DatePipeConfig } from '@angular/common';
 import { DataGridRowConfig, FieldTypes } from '../../../shared/types/data-grid.types';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
-import {MatPaginatorModule} from '@angular/material/paginator';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { AuthService } from '../../../shared/services/auth.service';
 
 type itemsKeys = 'title' | 'price' | 'imgSrc';
 
@@ -50,15 +50,18 @@ export class Items {
     }
   }
   itemsService = inject(ItemsService);
+  authService = inject(AuthService);
   total!: number;
   items = signal<ItemModel[]>([]);
-  gConfig: DataGridRowConfig<itemsKeys>[] = [
-    { key: 'title' },
-    { key: 'price', type: FieldTypes.INPUT },
-    { key: 'imgSrc', type: FieldTypes.IMAGE },
-    { type: FieldTypes.BUTTON, header: 'remove' },
-    { type: FieldTypes.BUTTON, header: 'more' },
-  ];
+  gConfig = computed<DataGridRowConfig<itemsKeys>[]>(() => {
+    return [
+      { key: 'title' },
+      { key: 'price', type: FieldTypes.INPUT },
+      { key: 'imgSrc', type: FieldTypes.IMAGE },
+      { type: FieldTypes.BUTTON, header: 'remove', disabled: !this.authService.access() },
+      { type: FieldTypes.BUTTON, header: 'more' },
+    ];
+  });
 
   constructor() {
     effect(() => {
