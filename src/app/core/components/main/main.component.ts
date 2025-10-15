@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthComponent } from "../auth.component/auth.component";
+import { CartStoreService } from '../../../pages/services/cart-store-service';
 
 @Component({
   selector: 'app-main',
@@ -29,6 +30,8 @@ import { AuthComponent } from "../auth.component/auth.component";
 })
 export class MainComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  cartStoreService = inject(CartStoreService);
+  cartLength = this.cartStoreService.state$;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

@@ -1,3 +1,7 @@
 <p>cart works!</p>
-x{{data()|json}}
-<!-- <app-grid [config]="[]" [data]=""></app-grid> -->
+<!-- x{{data()|json}} -->
+<app-grid [config]="[
+    {key:'title'},
+    {key: 'id'},
+    {key:'imgSrc', type:'img'}
+]" [data]="data()"></app-grid>
