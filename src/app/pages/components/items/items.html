@@ -1,4 +1,14 @@
 <div class="flex gap-4">
-    <app-search (out)="changeHandler($event)" [controls]="['title', 'priceFrom']"></app-search>
-    <app-grid [data]="items()" [config]="gConfig" (change)="gridAction($event)" ></app-grid>
+  <app-search (out)="changeHandler($event)" [controls]="['title', 'priceFrom']"></app-search>
+  <app-grid [data]="items()" [config]="gConfig" (change)="gridAction($event)"></app-grid>
 </div>
+<mat-paginator
+  (page)="changeHandler({
+    currentPage: $event.pageIndex + 1,
+    itemsPerPage: $event.pageSize
+    })"
+  [length]="total"
+  [pageSize]="filters().itemsPerPage"
+  [pageSizeOptions]="[2, 5, 10]"
+>
+</mat-paginator>

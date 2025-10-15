@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, effect, inject, signal, WritableSignal } from '@angular/core';
 import { Search } from '../../../shared/components/search/search';
 import { Grid } from '../../../shared/components/grid/grid';
 import { ItemsService } from '../../services/items.service';
@@ -7,26 +7,30 @@ import { CommonModule, DatePipeConfig } from '@angular/common';
 import { DataGridRowConfig, FieldTypes } from '../../../shared/types/data-grid.types';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 type itemsKeys = 'title' | 'price' | 'imgSrc';
 
 @Component({
   selector: 'app-items',
-  imports: [Search, Grid, CommonModule],
+  imports: [Search, Grid, CommonModule, MatPaginatorModule],
   templateUrl: './items.html',
   styleUrl: './items.css',
 })
 export class Items {
   router = inject(Router);
   filters = signal({
-    title:'',
+    title: '',
     priceFrom: 0,
     itemsPerPage: 5,
-    currentPage: 1
-  })
+    currentPage: 1,
+  });
 
-  changeHandler($event: void) {
-    
+  changeHandler($event: any) {
+    this.filters.update((value) => {
+      return { ...value, ...$event };
+    });
   }
 
   gridAction($event: any) {
@@ -57,7 +61,9 @@ export class Items {
   ];
 
   constructor() {
-    this.fetchItems();
+    effect(() => {
+      this.fetchItems();
+    });
   }
 
   private fetchItems() {

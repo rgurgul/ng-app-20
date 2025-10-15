@@ -1,1 +1,5 @@
-<p>workers works!</p>
+<div class="flex">
+  <p>workers works!</p>
+  <app-search [controls]="['name', 'phone']" (out)="changeHandler($event)"></app-search>
+  <app-grid [data]="workers" [config]="gConfig"></app-grid>
+</div>
