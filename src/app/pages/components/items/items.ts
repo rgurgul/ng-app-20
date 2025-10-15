@@ -18,6 +18,16 @@ type itemsKeys = 'title' | 'price' | 'imgSrc';
 })
 export class Items {
   router = inject(Router);
+  filters = signal({
+    title:'',
+    priceFrom: 0,
+    itemsPerPage: 5,
+    currentPage: 1
+  })
+
+  changeHandler($event: void) {
+    
+  }
 
   gridAction($event: any) {
     switch ($event.type) {
@@ -51,7 +61,7 @@ export class Items {
   }
 
   private fetchItems() {
-    this.itemsService.fetch().subscribe((resp) => {
+    this.itemsService.fetch(this.filters()).subscribe((resp) => {
       this.items.set(resp.data);
       this.total = resp.total;
     });

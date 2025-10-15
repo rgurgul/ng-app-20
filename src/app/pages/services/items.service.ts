@@ -11,8 +11,8 @@ export class ItemsService implements HttpServiceModel {
   
   http = inject(HttpClient);
 
-  fetch(filters?: { [key: string]: any; }): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(Api.ITEMS_END_POINT);
+  fetch(params?: { [key: string]: any; }): Observable<HttpResponseModel> {
+    return this.http.get<HttpResponseModel>(Api.ITEMS_END_POINT, {params});
   }
   get(id: number): Observable<any> {
     return this.http.get<HttpResponseModel>(Api.ITEMS_END_POINT + "/" + id);

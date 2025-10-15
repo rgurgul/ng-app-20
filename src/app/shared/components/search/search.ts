@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, input, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, input, OnDestroy, OnInit, output, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { filter, first, map, skip } from 'rxjs';
 
@@ -12,6 +12,7 @@ import { filter, first, map, skip } from 'rxjs';
 export class Search implements AfterViewInit {
   form = viewChild<NgForm>('f');
   controls: any = input.required();
+  out  = output();
 
   ngAfterViewInit(): void {
     this.form()
@@ -28,7 +29,7 @@ export class Search implements AfterViewInit {
         skip(2)
       )
       ?.subscribe((value) => {
-        console.log(value);
+        this.out.emit(value);
       });
   }
 }

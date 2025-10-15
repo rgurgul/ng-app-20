@@ -1,4 +1,4 @@
 <div class="flex gap-4">
-    <app-search [controls]="['title', 'priceFrom']"></app-search>
+    <app-search (out)="changeHandler($event)" [controls]="['title', 'priceFrom']"></app-search>
     <app-grid [data]="items()" [config]="gConfig" (change)="gridAction($event)" ></app-grid>
 </div>
