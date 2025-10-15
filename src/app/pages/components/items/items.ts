@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AuthService } from '../../../shared/services/auth.service';
+import { CartStoreService } from '../../services/cart-store-service';
 
 type itemsKeys = 'title' | 'price' | 'imgSrc';
 
@@ -45,12 +46,17 @@ export class Items {
         this.router.navigate(['items', $event.data.id]);
         break;
 
+      case 'buy':
+        this.cartStoreService.dispatch({type:'add', payload: $event.data})
+        break;
+
       default:
         break;
     }
   }
   itemsService = inject(ItemsService);
   authService = inject(AuthService);
+  cartStoreService = inject(CartStoreService);
   total!: number;
   items = signal<ItemModel[]>([]);
   gConfig = computed<DataGridRowConfig<itemsKeys>[]>(() => {
@@ -60,6 +66,7 @@ export class Items {
       { key: 'imgSrc', type: FieldTypes.IMAGE },
       { type: FieldTypes.BUTTON, header: 'remove', disabled: !this.authService.access() },
       { type: FieldTypes.BUTTON, header: 'more' },
+      { type: FieldTypes.BUTTON, header: 'buy' },
     ];
   });
 

@@ -24,6 +24,7 @@ export abstract class State<T> {
     this._state.set(nextState);
   }
 
+  // only object
   protected setPartial<E extends Partial<T>>(state: E): void {
     this._state.set({ ...this.value, ...state });
   }
