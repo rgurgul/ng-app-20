@@ -23,7 +23,7 @@ export class Items {
     switch ($event.type) {
       case 'remove':
         this.itemsService.remove($event.data.id).subscribe((resp: any) => {
-          debugger;
+          this.fetchItems();
         });
         break;
 
@@ -47,6 +47,10 @@ export class Items {
   ];
 
   constructor() {
+    this.fetchItems();
+  }
+
+  private fetchItems() {
     this.itemsService.fetch().subscribe((resp) => {
       this.items.set(resp.data);
       this.total = resp.total;
