@@ -11,26 +11,31 @@ import { AuthService } from '../../../shared/services/auth.service';
   imports: [FormsModule, CommonModule, MatButton],
   template: `
     <div>
-      {{ f.value | json }}
+    <!--   {{ f.value | json }}
       {{ f.valid }}
-      {{ f.submitted }}
-      <form #f="ngForm" class="m-1" (submit)="onSubmit(f.value)">
+      {{ f.submitted }} -->
+      
+      @if (authService.access()) {
+        <button matButton="tonal" (click)="authService.logOut()">logout</button>
+      } @else {
+        <form #f="ngForm" class="m-1" (submit)="onSubmit(f.value)">
         <input
           type="text"
           class="border p-1 bg-green-200 rounded-md"
           name="username"
-          ngModel
+          ngModel="admin@localhost"
           required
         />
         <input
           type="text"
           class="border p-1 bg-green-200 rounded-md"
           name="password"
-          ngModel
+          ngModel="Admin1"
           required
         />
-        <button matButton class="!bg-red-600 !text-white" [disabled]="!f.valid">login</button>
+        <button matButton="filled"  [disabled]="!f.valid">login</button>
       </form>
+      }
     </div>
   `,
   styles: ``,
@@ -40,6 +45,6 @@ export class AuthComponent {
   authService = inject(AuthService);
 
   onSubmit(arg0: AuthDataModel) {
-    debugger;
+    this.authService.logIn(arg0);
   }
 }
