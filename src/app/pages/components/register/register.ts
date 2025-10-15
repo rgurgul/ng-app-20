@@ -16,6 +16,15 @@ import { CustomValidators } from '../../../shared/utils/custom-validators';
         <input type="date" formControlName="birthDate">
         <br>
         {{form.get('birthDate')?.errors| json}}
+        <hr>
+        <div formGroupName="hobbies">
+          <!-- {{form.get('hobbies')?.value |json}} -->
+           @for (item of form.get('hobbies')?.value | keyvalue; track $index) {
+            {{item.key}}
+             <input type="checkbox" formControlName="{{item.key}}">
+           }
+           {{form.get('hobbies')?.errors| json}}
+        </div>
       </form>
       <pre>{{form.value | json}}</pre>
    </div>
@@ -24,6 +33,12 @@ import { CustomValidators } from '../../../shared/utils/custom-validators';
 export class Register {
   form = new FormGroup({
     username: new FormControl('', [Validators.email, Validators.required]),
-    birthDate: new FormControl(null, [Validators.required, CustomValidators.DateShoulddBePassed])
+    birthDate: new FormControl(null, [Validators.required, CustomValidators.DateShoulddBePassed]),
+    hobbies: new FormGroup({
+      tv: new FormControl(),
+      yt: new FormControl(),
+      fishing: new FormControl(),
+      discoPolo: new FormControl()
+    }, CustomValidators.atLeastOneShouldBeSelected)
   })
 }
